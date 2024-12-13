@@ -10,8 +10,8 @@ A aplicação utiliza Node.js e gerenciador de pacotes npm para execução. Ante
 ### **Passos para instalação:**
 1. Clone o repositório:
    ```bash
-   git clone <URL_DO_REPOSITORIO>
-   cd <NOME_DO_REPOSITORIO>
+   git clone https://github.com/Luizgizus/golden-raspberry-api.git
+   cd golden-raspberry-api
    ```
 
 2. Instale as dependências do projeto:
