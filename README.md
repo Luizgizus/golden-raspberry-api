@@ -116,11 +116,3 @@ Os testes utilizam um banco de dados em memória para garantir isolamento e repe
 A estrutura do teste garante que o comportamento da API esteja consistente com os dados fornecidos.
 
 ---
-
-### **Comandos úteis:**
-
-- **Executar todos os testes:**
-  ```bash
-  npm test
-  ```
-
