@@ -1,4 +1,4 @@
-# Aplicação NodeJS com NestJS: Golden Raspberry Awards API
+# Golden Raspberry Awards API
 
 ## **1. Como rodar os pré-requisitos da aplicação**
 
