@@ -76,13 +76,17 @@ export class MoviesService {
         return cleanedProducers.map((producer) => producer.trim());
     }
 
-    private getIntervalData(producer, interval, previousWin, followingWin){
-        return {
+    private getIntervalData(producer, interval, intervalProducerData){
+        let intervalData = []
+
+        intervalData = intervalProducerData.map(interval => { return {
             producer,
-            interval: interval,
-            previousWin: previousWin,
-            followingWin: followingWin,
-        }
+            interval: interval.interval,
+            previousWin: interval.previousWin,
+            followingWin: interval.followingWin,
+        } })
+
+        return intervalData
     }
 
     private getProducersResponseInterval(producerIntervals: Record<string, any[]>) {
@@ -95,30 +99,35 @@ export class MoviesService {
         for (const [producer, intervals] of Object.entries(producerIntervals)) {
 
             const largestInterval = Math.max(...intervals.map(interval => interval.interval));
-            const maxIntervalData = intervals.find(interval => interval.interval === largestInterval);
+            const maxIntervalData = intervals.filter(interval => interval.interval === largestInterval);
 
             const smallestInterval = Math.min(...intervals.map(interval => interval.interval));
-            const minIntervalData = intervals.find(interval => interval.interval === smallestInterval);
+            const minIntervalData = intervals.filter(interval => interval.interval === smallestInterval);
 
             if (maxIntervalData && largestInterval >= lastMaxIntervalValue) {
+                 let intervalData = this.getIntervalData(producer, largestInterval, maxIntervalData)
+
                 if (largestInterval == lastMaxIntervalValue) {
-                    maxIntervals.push(this.getIntervalData(producer, largestInterval, maxIntervalData.previousWin, maxIntervalData.followingWin));
+                    maxIntervals.push(intervalData)
                 } else {
-                    maxIntervals = [this.getIntervalData(producer, largestInterval, maxIntervalData.previousWin, maxIntervalData.followingWin)];
+                    maxIntervals = intervalData
                 }
 
                 lastMaxIntervalValue = largestInterval
             }
 
             if (minIntervalData && smallestInterval <= lastMinIntervalValue) {
+                let intervalData = this.getIntervalData(producer, smallestInterval, minIntervalData)
+
                 if (smallestInterval == lastMinIntervalValue) {
-                    minIntervals.push(this.getIntervalData(producer, smallestInterval, minIntervalData.previousWin, minIntervalData.followingWin));
+                    minIntervals.push(intervalData);
                 } else {
-                    minIntervals = [this.getIntervalData(producer, smallestInterval, minIntervalData.previousWin, minIntervalData.followingWin)];
+                    minIntervals = intervalData;
                 }
 
                 lastMinIntervalValue = smallestInterval
             }
+
         }
 
         return {
