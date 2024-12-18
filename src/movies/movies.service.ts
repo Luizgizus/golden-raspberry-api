@@ -3,8 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Movie } from './entities/movie.entity';
 import { ERROR_MESSAGES } from '../constants/messages';
-import { error } from 'console';
-import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 
 @Injectable()
 export class MoviesService {
@@ -76,15 +74,17 @@ export class MoviesService {
         return cleanedProducers.map((producer) => producer.trim());
     }
 
-    private getIntervalData(producer, interval, intervalProducerData){
+    private getIntervalData(producer, intervalProducerData) {
         let intervalData = []
 
-        intervalData = intervalProducerData.map(interval => { return {
-            producer,
-            interval: interval.interval,
-            previousWin: interval.previousWin,
-            followingWin: interval.followingWin,
-        } })
+        intervalData = intervalProducerData.map(interval => {
+            return {
+                producer,
+                interval: interval.interval,
+                previousWin: interval.previousWin,
+                followingWin: interval.followingWin,
+            }
+        })
 
         return intervalData
     }
@@ -105,7 +105,7 @@ export class MoviesService {
             const minIntervalData = intervals.filter(interval => interval.interval === smallestInterval);
 
             if (maxIntervalData && largestInterval >= lastMaxIntervalValue) {
-                 let intervalData = this.getIntervalData(producer, largestInterval, maxIntervalData)
+                let intervalData = this.getIntervalData(producer, maxIntervalData)
 
                 if (largestInterval == lastMaxIntervalValue) {
                     maxIntervals.push(intervalData)
@@ -117,7 +117,7 @@ export class MoviesService {
             }
 
             if (minIntervalData && smallestInterval <= lastMinIntervalValue) {
-                let intervalData = this.getIntervalData(producer, smallestInterval, minIntervalData)
+                let intervalData = this.getIntervalData(producer, minIntervalData)
 
                 if (smallestInterval == lastMinIntervalValue) {
                     minIntervals.push(intervalData);
