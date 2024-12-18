@@ -68,7 +68,33 @@ A aplicação contém testes de integração para validar o comportamento da API
 
 ### **4.1. Explicação de como os testes estão funcionando**
 
-Os testes de integração utilizam o framework [Jest](https://jestjs.io/) e são responsáveis por verificar os seguintes cenários da API:
+Este conjunto de testes utiliza o framework **NestJS** e a biblioteca **Supertest** para realizar testes de ponta a ponta (E2E) na aplicação. A seguir, uma explicação detalhada sobre o que cada parte do código realiza:
+
+### Teste do Endpoint
+**`(GET) /movies/producer-intervals`**  
+- **Objetivo**: Validar a resposta do endpoint `/movies/producer-intervals` para um cenário específico com intervalos mínimos e máximos definidos por dois produtores de filmes.
+- **Fluxo do Teste**:
+  1. Realiza uma requisição GET para o endpoint.
+  2. Verifica se a resposta HTTP é `200 (OK)`.
+  3. Confirma que o corpo da resposta contém as propriedades `min` e `max`.
+  4. Valida os dados retornados para os seguintes casos:
+     - **Intervalo mínimo**:
+       - Produtor: `Joel Silver`.
+       - Intervalo: `1`.
+       - Ano anterior ao prêmio: `1990`.
+       - Ano seguinte ao prêmio: `1991`.
+     - **Intervalo máximo**:
+       - Produtor: `Matthew Vaughn`.
+       - Intervalo: `13`.
+       - Ano anterior ao prêmio: `2002`.
+       - Ano seguinte ao prêmio: `2015`.
+
+### Finalidade
+Esse teste assegura que a lógica do endpoint `/movies/producer-intervals` funciona conforme esperado, retornando corretamente os intervalos mínimos e máximos para produtores de filmes vencedores de prêmios em diferentes anos. Ele também valida que os dados seguem o formato e as informações específicas requeridas, ou seja, caso os dados do arquivo sejam alterados de forma que o retorno da API mude o teste falhará.
+
+### **4.2. Testes adicionais**
+
+Há mais um arquivo de testes. Esse tem como principal utilidade testes, por meio de requisição HTTP as funcionalidades da rota `/movies/producer-intervals` esses testes de integração utilizam o framework [Jest](https://jestjs.io/) e são responsáveis por verificar os seguintes cenários da API:
 
 1. **Cenário com intervalos mínimos e máximos para um único produtor:**
    - Valida que a API retorna corretamente os intervalos mínimos e máximos de prêmios consecutivos de um único produtor.
@@ -82,6 +108,7 @@ Os testes de integração utilizam o framework [Jest](https://jestjs.io/) e são
 Os testes utilizam um banco de dados em memória para garantir isolamento e repetibilidade. Antes de cada teste:
 - O banco é limpo usando a função `moviesService.deleteAll()`.
 - Novos dados de filmes são inseridos com as funções `getUniqueProducerInterval` e `getmultipleProducerInterval`.
+
 
 ### **Exemplo de saída esperada:**
 #### Sucesso:
