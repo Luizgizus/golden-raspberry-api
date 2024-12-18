@@ -1,4 +1,4 @@
-# Aplicação NodeJS com NestJS: Golden Raspberry Awards API
+# Golden Raspberry Awards API
 
 ## **1. Como rodar os pré-requisitos da aplicação**
 
@@ -10,8 +10,8 @@ A aplicação utiliza Node.js e gerenciador de pacotes npm para execução. Ante
 ### **Passos para instalação:**
 1. Clone o repositório:
    ```bash
-   git clone <URL_DO_REPOSITORIO>
-   cd <NOME_DO_REPOSITORIO>
+   git clone https://github.com/Luizgizus/golden-raspberry-api.git
+   cd golden-raspberry-api
    ```
 
 2. Instale as dependências do projeto:
@@ -116,11 +116,3 @@ Os testes utilizam um banco de dados em memória para garantir isolamento e repe
 A estrutura do teste garante que o comportamento da API esteja consistente com os dados fornecidos.
 
 ---
-
-### **Comandos úteis:**
-
-- **Executar todos os testes:**
-  ```bash
-  npm test
-  ```
-
